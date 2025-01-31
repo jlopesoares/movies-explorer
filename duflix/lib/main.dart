@@ -1,5 +1,8 @@
 import 'package:bloc/bloc.dart';
+import 'package:duflix/api/gen/client_index.dart';
+import 'package:duflix/api/watchmode_api.dart';
 import 'package:duflix/app_config.dart';
+import 'package:duflix/feature/sources/sources_page.dart';
 import 'package:flutter/material.dart';
 
 final config = AppConfig(
@@ -13,17 +16,15 @@ void main() {
 
 class MainApp extends StatelessWidget {
   const MainApp({super.key});
-
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       home: Scaffold(
-        body: Center(
-          child: Text(
-            'Duflix!',
-            style: TextStyle(fontSize: 50),
-          ),
+        backgroundColor: Colors.blueGrey,
+        appBar: AppBar(
+          title: const Text('Sources'),
         ),
+        body: const SourcesPageWidget(),
       ),
     );
   }
