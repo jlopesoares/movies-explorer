@@ -1,7 +1,6 @@
 import 'dart:async';
-
-import 'package:duflix/api/gen/client_index.dart';
 import 'package:chopper/chopper.dart';
+import 'package:duflix/api/gen/client_index.dart';
 
 WatchmodeApi createWatchmodeApi({
   required Uri baseUrl,

@@ -1,6 +1,6 @@
+import 'package:bloc/bloc.dart';
 import 'package:duflix/app_config.dart';
 import 'package:flutter/material.dart';
-import 'package:bloc/bloc.dart';
 
 final config = AppConfig(
   watchmodeBaseUrl: Uri.parse('https://api.watchmode.com/v1'),
