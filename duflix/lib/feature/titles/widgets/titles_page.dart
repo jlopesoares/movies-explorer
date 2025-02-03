@@ -10,6 +10,10 @@ class TitlesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Titles'),
+        leading: BackButton(onPressed: () => GoRouter.of(context).pop()),
+      ),
       body: ListView.builder(
         itemCount: 10,
         itemBuilder: (context, index) {
@@ -20,12 +24,15 @@ class TitlesPage extends StatelessWidget {
               type: TitleType.movie,
               year: 2021,
             ),
-            () {
-              context.push('${GoRouter.of(context).state.fullPath}/details');
-            },
+            _navigateToDetails(context, index),
           );
         },
       ),
     );
+  }
+
+  VoidCallback _navigateToDetails(BuildContext context, int id) {
+    return () => GoRouter.of(context)
+        .go('${GoRouter.of(context).state.fullPath}/details/$id');
   }
 }

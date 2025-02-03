@@ -9,6 +9,9 @@ class SourcesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Sources'),
+      ),
       body: ListView.builder(
         itemCount: 10,
         itemBuilder: (context, index) {
@@ -67,12 +70,16 @@ class SourcesPage extends StatelessWidget {
         itemBuilder: (context, index) {
           return SourceWidget(
             sources[index],
-            () {
-              context.push('/titles/${sources[index].id}');
-            },
+            _navigateToTitle(context, sources[index].id),
           );
         },
       ),
     );
+  }
+
+  VoidCallback _navigateToTitle(BuildContext context, int id) {
+    return () {
+      GoRouter.of(context).go('/titles/$id');
+    };
   }
 }

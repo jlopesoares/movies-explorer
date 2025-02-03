@@ -1,6 +1,7 @@
 import 'package:duflix/core/widgets/duflix_chip.dart';
 import 'package:duflix/core/widgets/title_metadata_row.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class DetailsPage extends StatelessWidget {
   const DetailsPage({super.key});
@@ -8,23 +9,17 @@ class DetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Details'),
+        leading: BackButton(
+          onPressed: () => GoRouter.of(context).pop(),
+        ),
+      ),
       body: Column(
         children: [
-          Stack(
-            children: [
-              Image.asset(
-                'assets/images/mufasa.jpg',
-                fit: BoxFit.cover,
-              ),
-              TextButton(
-                onPressed: () {},
-                child: const Icon(
-                  Icons.arrow_back,
-                  size: 24,
-                  color: Colors.white,
-                ),
-              ),
-            ],
+          Image.asset(
+            'assets/images/mufasa.jpg',
+            fit: BoxFit.cover,
           ),
           _metadata(),
         ],
