@@ -1,9 +1,6 @@
-import 'package:bloc/bloc.dart';
-import 'package:duflix/api/gen/client_index.dart';
 import 'package:duflix/api/watchmode_api.dart';
 import 'package:duflix/app_config.dart';
-import 'package:duflix/feature/titles/widgets/titles_page.dart';
-import 'package:duflix/feature/sources/sources_page.dart';
+import 'package:duflix/feature/details/details_widget.dart';
 import 'package:flutter/material.dart';
 
 final config = AppConfig(
@@ -37,7 +34,7 @@ class MainApp extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Sources'),
         ),
-        body: SourcesPageWidget(),
+        body: const DetailsPage(),
       ),
     );
   }

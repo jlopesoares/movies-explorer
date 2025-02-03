@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:duflix/api/gen/watchmode_api.swagger.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +15,7 @@ class SourceWidget extends StatelessWidget {
         padding: const EdgeInsets.all(8),
         child: InkWell(
           borderRadius: BorderRadius.circular(12),
-          onTap: () => print('Title ${source.id}'),
+          onTap: () => log('Title ${source.id}'),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
