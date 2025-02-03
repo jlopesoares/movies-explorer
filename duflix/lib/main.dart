@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:duflix/api/gen/client_index.dart';
 import 'package:duflix/api/watchmode_api.dart';
 import 'package:duflix/app_config.dart';
+import 'package:duflix/feature/titles/widgets/titles_page.dart';
 import 'package:duflix/feature/sources/sources_page.dart';
 import 'package:flutter/material.dart';
 
@@ -16,15 +17,27 @@ void main() {
 
 class MainApp extends StatelessWidget {
   const MainApp({super.key});
+
+  void teste() {
+    final watchmodeApi = createWatchmodeApi(
+      baseUrl: config.watchmodeBaseUrl,
+      apiKey: config.watchmodeApiKey,
+    );
+
+    // watchmodeApi.listTitlesGet().then((value) {
+    //   print(value.body);
+    // });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData.dark(),
       home: Scaffold(
-        backgroundColor: Colors.blueGrey,
         appBar: AppBar(
           title: const Text('Sources'),
         ),
-        body: const SourcesPageWidget(),
+        body: SourcesPageWidget(),
       ),
     );
   }

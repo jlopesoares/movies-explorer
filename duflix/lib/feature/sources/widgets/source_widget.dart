@@ -8,23 +8,28 @@ class SourceWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return Card.filled(
       child: Padding(
         padding: const EdgeInsets.all(8),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Icon(
-              Icons.movie,
-              color: Colors.white,
-            ),
-            Text(
-              source.name,
-              style: const TextStyle(
+        child: InkWell(
+          borderRadius: BorderRadius.circular(12),
+          onTap: () => print('Title ${source.id}'),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Icon(
+                Icons.movie,
                 color: Colors.white,
               ),
-            ),
-          ],
+              Text(
+                source.name,
+                style: const TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
