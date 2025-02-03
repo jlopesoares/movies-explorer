@@ -2,6 +2,7 @@ import 'package:duflix/api/gen/watchmode_api.enums.swagger.dart';
 import 'package:duflix/api/gen/watchmode_api.models.swagger.dart';
 import 'package:duflix/feature/titles/widgets/widgets/title_summary_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class TitlesPage extends StatelessWidget {
   const TitlesPage({super.key});
@@ -19,6 +20,9 @@ class TitlesPage extends StatelessWidget {
               type: TitleType.movie,
               year: 2021,
             ),
+            () {
+              context.push('${GoRouter.of(context).state.fullPath}/details');
+            },
           );
         },
       ),

@@ -1,12 +1,12 @@
-import 'dart:developer';
 import 'package:duflix/api/gen/watchmode_api.models.swagger.dart';
 import 'package:duflix/core/widgets/title_metadata_row.dart';
 import 'package:flutter/material.dart';
 
 class TitleSummaryWidget extends StatelessWidget {
-  const TitleSummaryWidget(this.titleSummary, {super.key});
+  const TitleSummaryWidget(this.titleSummary, this.onTap, {super.key});
 
   final TitleSummary titleSummary;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +14,7 @@ class TitleSummaryWidget extends StatelessWidget {
       margin: const EdgeInsets.all(8),
       child: InkWell(
         borderRadius: BorderRadius.circular(12),
-        onTap: () => log('Title ${titleSummary.id}'),
+        onTap: onTap,
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: Column(

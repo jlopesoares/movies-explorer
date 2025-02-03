@@ -1,7 +1,7 @@
 import 'package:duflix/api/watchmode_api.dart';
 import 'package:duflix/app_config.dart';
-import 'package:duflix/feature/details/details_widget.dart';
 import 'package:flutter/material.dart';
+import 'navigation/router.dart';
 
 final config = AppConfig(
   watchmodeBaseUrl: Uri.parse('https://api.watchmode.com/v1'),
@@ -28,14 +28,9 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       theme: ThemeData.dark(),
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Sources'),
-        ),
-        body: const DetailsPage(),
-      ),
+      routerConfig: AppNavigator().useGoRouter,
     );
   }
 }

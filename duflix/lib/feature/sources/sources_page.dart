@@ -1,9 +1,10 @@
 import 'package:duflix/api/gen/watchmode_api.swagger.dart';
 import 'package:duflix/feature/sources/widgets/source_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
-class SourcesPageWidget extends StatelessWidget {
-  const SourcesPageWidget({super.key});
+class SourcesPage extends StatelessWidget {
+  const SourcesPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +65,12 @@ class SourcesPageWidget extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         itemCount: sources.length,
         itemBuilder: (context, index) {
-          return SourceWidget(sources[index]);
+          return SourceWidget(
+            sources[index],
+            () {
+              context.push('/titles/${sources[index].id}');
+            },
+          );
         },
       ),
     );
