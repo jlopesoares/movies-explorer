@@ -12,20 +12,19 @@ class TitlesListCubit extends Cubit<TitlesListState> {
   final int sourceId;
 
   List<TitleSummary> titles = [];
-  TitlesResult? titlesResult;
-  int currentPage = 0;
+  TitlesResult? _titlesResult;
+  int _currentPage = 0;
 
-  bool get hasMoreItems => currentPage < (titlesResult?.totalPages ?? 0);
+  int get numberOfTitles => titles.length;
+  bool get hasMoreItems => _currentPage < (_titlesResult?.totalPages ?? 0);
   bool get isLoadingMore => state == TitlesListState.loadingMore;
   bool get isLoadingMoreAvailable => isLoadingMore || !hasMoreItems;
 
   Future<void> loadTitles() async {
-    print("called loadTitles");
-
     try {
       final titlesResult = await _titlesRepositoryUseCase.listTitles(
         sourceId,
-        currentPage + 1,
+        _currentPage + 1,
       );
 
       if (titles.isEmpty) {
@@ -34,8 +33,8 @@ class TitlesListCubit extends Cubit<TitlesListState> {
         titles.addAll(titlesResult.titles.map((e) => e).toList());
       }
 
-      this.titlesResult = titlesResult;
-      currentPage = titlesResult.page;
+      _titlesResult = titlesResult;
+      _currentPage = titlesResult.page;
 
       emit(TitlesListState.loaded);
     } catch (err) {

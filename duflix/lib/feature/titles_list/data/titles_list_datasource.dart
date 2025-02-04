@@ -3,8 +3,6 @@ import 'package:duflix/feature/titles_list/data/usecases/titles_list_datasource_
 
 class TitlesListDatasource implements TitlesListDatasourceUsecase {
   const TitlesListDatasource(this.api);
-
-  @override
   final WatchmodeApi api;
 
   @override
@@ -23,8 +21,7 @@ class MockSuccessTitlesListDataSource implements TitlesListDatasourceUsecase {
   Future<TitlesResult> listTitles(int sourceId, int page) async {
     return Future.delayed(
       const Duration(seconds: 1),
-    ).then(
-      (value) {
+      () {
         return Future.value(
           TitlesResult(
             page: page,

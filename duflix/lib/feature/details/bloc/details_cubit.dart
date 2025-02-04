@@ -16,7 +16,7 @@ class DetailsCubit extends Cubit<DetailsPageState> {
   ) : super(DetailsPageState.loading);
 
   late TitleDetails? details;
-  final int titleId;
+  final String? titleId;
 
   final DetailsRepositoryUseCase _detailsRepositoryUseCase;
 
@@ -26,8 +26,8 @@ class DetailsCubit extends Cubit<DetailsPageState> {
 
   Future<void> loadDetails() async {
     try {
-      final serviceDetail =
-          await _detailsRepositoryUseCase.getTitleDetails(titleId);
+      final serviceDetail = await _detailsRepositoryUseCase
+          .getTitleDetails(int.parse(titleId ?? ''));
       details = serviceDetail;
 
       emit(DetailsPageState.loaded);

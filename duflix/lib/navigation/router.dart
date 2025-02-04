@@ -56,16 +56,18 @@ class AppNavigator {
 
   static GoRoute _detailsRoute() {
     return GoRoute(
-      path: AppRoutes.details,
-      builder: (context, state) => BlocProvider(
-        create: (_) => DetailsCubit(
-          SucessMockDetailsRepository(
-            MockSucessDetailsDatasource(),
-          ),
-          03256235,
-        )..loadDetails(),
-        child: const DetailsScreen(),
-      ),
-    );
+        path: AppRoutes.details,
+        builder: (context, state) {
+          final titleId = state.pathParameters['titleId'];
+          return BlocProvider(
+            create: (_) => DetailsCubit(
+              DetailsRepository(
+                DetailsDatasource(watchmodeApi),
+              ),
+              titleId,
+            )..loadDetails(),
+            child: const DetailsScreen(),
+          );
+        });
   }
 }
