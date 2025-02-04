@@ -1,4 +1,4 @@
-import 'package:duflix/api/watchmode_api.dart';
+// import 'package:duflix/api/watchmode_api.dart';
 import 'package:duflix/app_config.dart';
 import 'package:flutter/material.dart';
 import 'navigation/router.dart';
@@ -16,10 +16,10 @@ class MainApp extends StatelessWidget {
   const MainApp({super.key});
 
   void teste() {
-    final watchmodeApi = createWatchmodeApi(
-      baseUrl: config.watchmodeBaseUrl,
-      apiKey: config.watchmodeApiKey,
-    );
+    // final watchmodeApi = createWatchmodeApi(
+    //   baseUrl: config.watchmodeBaseUrl,
+    //   apiKey: config.watchmodeApiKey,
+    // );
 
     // watchmodeApi.listTitlesGet().then((value) {
     //   print(value.body);

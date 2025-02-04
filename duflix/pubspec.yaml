@@ -31,4 +31,5 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - assets/images/mufasa.jpg
+    - assets/images/mufasa_poster.jpg
+    - assets/images/mufasa_backdrop.jpg

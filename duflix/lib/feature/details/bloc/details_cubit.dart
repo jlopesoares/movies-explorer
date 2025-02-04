@@ -1,5 +1,7 @@
 import 'package:duflix/api/gen/watchmode_api.models.swagger.dart';
-import 'package:duflix/feature/details/repository/usecases/details_repository_usecase.dart';
+import 'package:duflix/feature/details/data/details_repository.dart';
+import 'package:duflix/feature/details/data/usecases/details_repository_usecase.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 enum DetailsPageState {
   loading,
@@ -15,6 +17,10 @@ class DetailsCubit extends Cubit<DetailsPageState> {
 
   final DetailsRepositoryUseCase _detailsRepositoryUseCase;
 
+  String? get detailImage => details?.backdrop ?? details?.poster;
+  bool get isMock =>
+      _detailsRepositoryUseCase.runtimeType == SucessMockDetailsRepository;
+
   Future<void> loadDetails(int titleId) async {
     try {
       final serviceDetail =
@@ -22,7 +28,7 @@ class DetailsCubit extends Cubit<DetailsPageState> {
       details = serviceDetail;
 
       emit(DetailsPageState.loaded);
-    } catch (exception) {
+    } catch (err) {
       emit(DetailsPageState.error);
     }
   }

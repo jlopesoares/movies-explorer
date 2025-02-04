@@ -28,7 +28,7 @@ class TitleSummaryWidget extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              TitleMetadataRow.outlined(
+              TitleTypeAndYearMetadata.outlined(
                 titleSummary.type.name,
                 titleSummary.year.toString(),
               ),

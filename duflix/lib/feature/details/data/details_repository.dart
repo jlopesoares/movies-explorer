@@ -1,13 +1,16 @@
 import 'package:duflix/api/gen/watchmode_api.models.swagger.dart';
-import 'package:duflix/feature/details/repository/usecases/details_datasource_usecase.dart';
-import 'package:duflix/feature/details/repository/usecases/details_repository_usecase.dart';
+import 'package:duflix/feature/details/data/usecases/details_datasource_usecase.dart';
+import 'package:duflix/feature/details/data/usecases/details_repository_usecase.dart';
 
-class DetailsRepository {
-  const DetailsRepository(this._datasource);
-  final DetailsDatasourceUsecase _datasource;
+class DetailsRepository implements DetailsRepositoryUseCase {
+  const DetailsRepository(this.datasource);
 
-  Future<TitleDetails?> getDetails(int titleId) async {
-    return _datasource.getTitleDetails(titleId);
+  @override
+  final DetailsDatasourceUsecase datasource;
+
+  @override
+  Future<TitleDetails?> getTitleDetails(int titleId) {
+    return datasource.getTitleDetails(titleId);
   }
 }
 
