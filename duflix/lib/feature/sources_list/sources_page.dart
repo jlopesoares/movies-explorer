@@ -1,5 +1,5 @@
 import 'package:duflix/api/gen/watchmode_api.swagger.dart';
-import 'package:duflix/feature/sources/widgets/source_widget.dart';
+import 'package:duflix/feature/sources_list/widgets/source_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 

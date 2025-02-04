@@ -4,8 +4,11 @@ import 'package:duflix/feature/details/bloc/details_cubit.dart';
 import 'package:duflix/feature/details/data/details_datasource.dart';
 import 'package:duflix/feature/details/data/details_repository.dart';
 import 'package:duflix/feature/details/details_screen.dart';
-import 'package:duflix/feature/sources/sources_page.dart';
-import 'package:duflix/feature/titles/widgets/titles_page.dart';
+import 'package:duflix/feature/sources_list/sources_page.dart';
+import 'package:duflix/feature/titles_list/bloc/titles_list_cubit.dart';
+import 'package:duflix/feature/titles_list/data/titles_list_datasource.dart';
+import 'package:duflix/feature/titles_list/data/titles_list_repository.dart';
+import 'package:duflix/feature/titles_list/widgets/titles_page.dart';
 import 'package:duflix/navigation/routes.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -36,7 +39,14 @@ class AppNavigator {
   static GoRoute _titlesListRoute() {
     return GoRoute(
       path: AppRoutes.titles,
-      builder: (context, state) => const TitlesPage(),
+      builder: (context, state) => BlocProvider(
+        create: (_) => TitlesListCubit(
+          TitlesListRepository(
+            TitlesListDatasource(watchmodeApi),
+          ),
+        )..loadTitles(371, 1),
+        child: const TitlesPage(),
+      ),
       routes: [
         _detailsRoute(),
       ],
@@ -52,6 +62,16 @@ class AppNavigator {
             MockSucessDetailsDatasource(),
           ),
         )..loadDetails(03256235),
+        child: const DetailsScreen(),
+      ),
+    );
+  }
+
+  static GoRoute _detailsFancyRoute() {
+    return GoRoute(
+      path: AppRoutes.details,
+      builder: (context, state) => BlocProvider(
+        create: (_) => FancyDetailsCubit()..setLoaded(),
         child: const DetailsScreen(),
       ),
     );

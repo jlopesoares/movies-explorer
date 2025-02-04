@@ -33,3 +33,13 @@ class DetailsCubit extends Cubit<DetailsPageState> {
     }
   }
 }
+
+class FancyDetailsCubit extends Cubit<DetailsPageState> {
+  FancyDetailsCubit() : super(DetailsPageState.loading);
+
+  void setLoaded() {
+    Future.delayed(const Duration(seconds: 5), () {
+      emit(DetailsPageState.loaded);
+    });
+  }
+}
