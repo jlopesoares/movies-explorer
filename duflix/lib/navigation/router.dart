@@ -44,8 +44,9 @@ class AppNavigator {
           TitlesListRepository(
             TitlesListDatasource(watchmodeApi),
           ),
-        )..loadTitles(371, 1),
-        child: const TitlesPage(),
+          371,
+        )..loadTitles(),
+        child: const TitlesListPage(),
       ),
       routes: [
         _detailsRoute(),
@@ -61,17 +62,8 @@ class AppNavigator {
           SucessMockDetailsRepository(
             MockSucessDetailsDatasource(),
           ),
-        )..loadDetails(03256235),
-        child: const DetailsScreen(),
-      ),
-    );
-  }
-
-  static GoRoute _detailsFancyRoute() {
-    return GoRoute(
-      path: AppRoutes.details,
-      builder: (context, state) => BlocProvider(
-        create: (_) => FancyDetailsCubit()..setLoaded(),
+          03256235,
+        )..loadDetails(),
         child: const DetailsScreen(),
       ),
     );

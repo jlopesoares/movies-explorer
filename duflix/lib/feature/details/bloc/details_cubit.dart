@@ -10,10 +10,13 @@ enum DetailsPageState {
 }
 
 class DetailsCubit extends Cubit<DetailsPageState> {
-  DetailsCubit(this._detailsRepositoryUseCase)
-      : super(DetailsPageState.loading);
+  DetailsCubit(
+    this._detailsRepositoryUseCase,
+    this.titleId,
+  ) : super(DetailsPageState.loading);
 
   late TitleDetails? details;
+  final int titleId;
 
   final DetailsRepositoryUseCase _detailsRepositoryUseCase;
 
@@ -21,7 +24,7 @@ class DetailsCubit extends Cubit<DetailsPageState> {
   bool get isMock =>
       _detailsRepositoryUseCase.runtimeType == SucessMockDetailsRepository;
 
-  Future<void> loadDetails(int titleId) async {
+  Future<void> loadDetails() async {
     try {
       final serviceDetail =
           await _detailsRepositoryUseCase.getTitleDetails(titleId);

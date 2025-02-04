@@ -1,22 +1,49 @@
-import 'package:duflix/api/gen/watchmode_api.enums.swagger.dart';
-import 'package:duflix/api/gen/watchmode_api.models.swagger.dart';
 import 'package:duflix/feature/titles_list/bloc/titles_list_cubit.dart';
 import 'package:duflix/feature/titles_list/widgets/widgets/title_summary_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-class TitlesPage extends StatelessWidget {
-  const TitlesPage({super.key});
+class TitlesListPage extends StatefulWidget {
+  const TitlesListPage({super.key});
+
+  @override
+  _TitlesListPageState createState() => _TitlesListPageState();
+}
+
+class _TitlesListPageState extends State<TitlesListPage> {
+  late TitlesListCubit _titlesListCubit;
+  final ScrollController _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(_onScroll);
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _onScroll() {
+    if (_scrollController.position.pixels >=
+        _scrollController.position.maxScrollExtent) {
+      _titlesListCubit.loadMoreTitles();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    _titlesListCubit = context.read<TitlesListCubit>();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Titles'),
         leading: BackButton(onPressed: () => GoRouter.of(context).pop()),
       ),
       body: BlocBuilder<TitlesListCubit, TitlesListState>(
+        bloc: _titlesListCubit,
         builder: (context, state) {
           return _pageUIState(context);
         },
@@ -25,18 +52,30 @@ class TitlesPage extends StatelessWidget {
   }
 
   Widget _pageUIState(BuildContext context) {
-    final TitlesListCubit titlesListCubit = context.read<TitlesListCubit>();
-
-    switch (titlesListCubit.state) {
+    switch (_titlesListCubit.state) {
       case TitlesListState.loading:
         return const Center(child: CircularProgressIndicator());
       case TitlesListState.loaded:
+      case TitlesListState.loadingMore:
         return ListView.builder(
-          itemCount: titlesListCubit.titles.length,
+          controller: _scrollController,
+          itemCount: _titlesListCubit.titles.length +
+              (_titlesListCubit.hasMoreItems ? 1 : 0),
           itemBuilder: (context, index) {
+            if (index == _titlesListCubit.titles.length) {
+              return const Padding(
+                padding: EdgeInsets.all(8),
+                child: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              );
+            }
             return TitleSummaryWidget(
-              titlesListCubit.titles[index],
-              _navigateToDetails(context, titlesListCubit.titles[index].id),
+              _titlesListCubit.titles[index],
+              _navigateToDetails(
+                context,
+                _titlesListCubit.titles[index].id,
+              ),
             );
           },
         );
