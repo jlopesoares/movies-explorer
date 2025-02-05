@@ -24,6 +24,7 @@ class _TitlesListPageState extends State<TitlesListPage> {
   @override
   void dispose() {
     _scrollController.dispose();
+    _titlesListCubit.close();
     super.dispose();
   }
 

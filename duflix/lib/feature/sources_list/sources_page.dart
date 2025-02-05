@@ -75,7 +75,7 @@ class SourcesScreen extends StatelessWidget {
 
   Widget _railList(List<SourceSummary> sources) {
     return SizedBox(
-      height: 85,
+      height: 140,
       child: ListView.builder(
         padding: const EdgeInsets.symmetric(
           horizontal: 8,

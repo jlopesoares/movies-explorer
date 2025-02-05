@@ -1,5 +1,5 @@
 import 'package:duflix/api/gen/watchmode_api.models.swagger.dart';
-import 'package:duflix/core/widgets/title_metadata_row.dart';
+import 'package:duflix/core/widgets/duflix_title_typeyear_metadata.dart';
 import 'package:flutter/material.dart';
 
 class TitleSummaryWidget extends StatelessWidget {
