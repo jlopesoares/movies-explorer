@@ -1,7 +1,7 @@
 import 'package:duflix/api/gen/watchmode_api.swagger.dart';
-import 'package:duflix/feature/sources_list/data/usecases/sources_datasource_usecase.dart';
-import 'package:duflix/feature/sources_list/data/usecases/sources_repository_usecase.dart';
 import 'package:duflix/feature/sources_list/domain/sources_rail.dart';
+import 'package:duflix/feature/sources_list/usecases/sources_datasource_usecase.dart';
+import 'package:duflix/feature/sources_list/usecases/sources_repository_usecase.dart';
 
 class SourcesRepository implements SourcesRepositoryUsecase {
   const SourcesRepository(this.datasource);

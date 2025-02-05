@@ -15,7 +15,18 @@ class SourcesCubit extends Cubit<SourcesScreenState> {
   late List<SourcesRail> rails;
 
   Future<void> loadSources() async {
-    rails = await _repository.getSources();
-    emit(SourcesScreenState.loaded);
+    try {
+      rails = await _repository.getSources();
+      _setState(SourcesScreenState.loaded);
+    } catch (err) {
+      _setState(SourcesScreenState.error);
+    }
+  }
+
+  void _setState(SourcesScreenState state) {
+    if (isClosed) {
+      return;
+    }
+    emit(state);
   }
 }

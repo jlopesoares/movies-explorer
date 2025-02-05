@@ -1,6 +1,6 @@
 import 'package:duflix/api/gen/watchmode_api.models.swagger.dart';
 import 'package:duflix/feature/details/data/details_repository.dart';
-import 'package:duflix/feature/details/data/usecases/details_repository_usecase.dart';
+import 'package:duflix/feature/details/usecases/details_repository_usecase.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 enum DetailsPageState {
@@ -30,19 +30,16 @@ class DetailsCubit extends Cubit<DetailsPageState> {
           .getTitleDetails(int.parse(titleId ?? ''));
       details = serviceDetail;
 
-      emit(DetailsPageState.loaded);
+      _setState(DetailsPageState.loaded);
     } catch (err) {
-      emit(DetailsPageState.error);
+      _setState(DetailsPageState.error);
     }
   }
-}
 
-class FancyDetailsCubit extends Cubit<DetailsPageState> {
-  FancyDetailsCubit() : super(DetailsPageState.loading);
-
-  void setLoaded() {
-    Future.delayed(const Duration(seconds: 5), () {
-      emit(DetailsPageState.loaded);
-    });
+  void _setState(DetailsPageState state) {
+    if (isClosed) {
+      return;
+    }
+    emit(state);
   }
 }

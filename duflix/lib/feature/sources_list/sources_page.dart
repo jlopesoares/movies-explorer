@@ -1,7 +1,7 @@
 import 'package:duflix/api/gen/watchmode_api.swagger.dart';
 import 'package:duflix/feature/sources_list/bloc/sources_cubit.dart';
 import 'package:duflix/feature/sources_list/domain/sources_rail.dart';
-import 'package:duflix/feature/sources_list/widgets/source_widget.dart';
+import 'package:duflix/feature/sources_list/widgets/source_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';

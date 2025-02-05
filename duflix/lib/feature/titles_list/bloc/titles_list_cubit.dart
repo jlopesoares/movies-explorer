@@ -1,5 +1,5 @@
 import 'package:duflix/api/gen/watchmode_api.swagger.dart';
-import 'package:duflix/feature/titles_list/data/usecases/titles_list_repository_usecase.dart';
+import 'package:duflix/feature/titles_list/usecases/titles_list_repository_usecase.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 enum TitlesListState { loading, loaded, error, loadingMore }
@@ -40,9 +40,9 @@ class TitlesListCubit extends Cubit<TitlesListState> {
       _titlesResult = titlesResult;
       _currentPage = titlesResult.page;
 
-      emit(TitlesListState.loaded);
+      _setState(TitlesListState.loaded);
     } catch (err) {
-      emit(TitlesListState.error);
+      _setState(TitlesListState.error);
     }
   }
 
@@ -54,5 +54,13 @@ class TitlesListCubit extends Cubit<TitlesListState> {
     emit(TitlesListState.loadingMore);
     await loadTitles();
     emit(TitlesListState.loaded);
+  }
+
+  void _setState(TitlesListState state) {
+    if (isClosed) {
+      return;
+    }
+
+    emit(state);
   }
 }

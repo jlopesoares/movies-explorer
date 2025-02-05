@@ -1,5 +1,5 @@
 import 'package:duflix/api/gen/watchmode_api.swagger.dart';
-import 'package:duflix/feature/sources_list/data/usecases/sources_datasource_usecase.dart';
+import 'package:duflix/feature/sources_list/usecases/sources_datasource_usecase.dart';
 
 class SourcesDatasource implements SourcesDatasourceUsecase {
   const SourcesDatasource(this.api);
@@ -9,7 +9,7 @@ class SourcesDatasource implements SourcesDatasourceUsecase {
   @override
   Future<List<SourceSummary>> getSources() async {
     final response = await api.sourcesGet();
-    return response.body!;
+    return response.bodyOrThrow;
   }
 }
 

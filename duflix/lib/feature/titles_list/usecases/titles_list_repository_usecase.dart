@@ -1,5 +1,5 @@
 import 'package:duflix/api/gen/watchmode_api.models.swagger.dart';
-import 'package:duflix/feature/titles_list/data/usecases/titles_list_datasource_usecase.dart';
+import 'package:duflix/feature/titles_list/usecases/titles_list_datasource_usecase.dart';
 
 abstract class TitlesListRepositoryUseCase {
   const TitlesListRepositoryUseCase(this.datasource);

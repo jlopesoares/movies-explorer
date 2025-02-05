@@ -17,7 +17,9 @@ class SourcesRail {
         return 'Purchase';
       case SourceType.sub:
         return 'Subscription';
-      default:
+      case SourceType.tve:
+        return 'TV';
+      case SourceType.swaggerGeneratedUnknown:
         return 'Other';
     }
   }

@@ -1,5 +1,5 @@
 import 'package:duflix/api/gen/watchmode_api.swagger.dart';
-import 'package:duflix/feature/titles_list/data/usecases/titles_list_datasource_usecase.dart';
+import 'package:duflix/feature/titles_list/usecases/titles_list_datasource_usecase.dart';
 
 class TitlesListDatasource implements TitlesListDatasourceUsecase {
   const TitlesListDatasource(this.api);
@@ -12,7 +12,7 @@ class TitlesListDatasource implements TitlesListDatasourceUsecase {
       limit: 10,
       page: page,
     );
-    return response.body!;
+    return response.bodyOrThrow;
   }
 }
 

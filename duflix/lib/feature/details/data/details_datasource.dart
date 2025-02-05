@@ -1,5 +1,5 @@
 import 'package:duflix/api/gen/watchmode_api.swagger.dart';
-import 'package:duflix/feature/details/data/usecases/details_datasource_usecase.dart';
+import 'package:duflix/feature/details/usecases/details_datasource_usecase.dart';
 
 class DetailsDatasource implements DetailsDatasourceUsecase {
   const DetailsDatasource(this.api);
@@ -9,7 +9,7 @@ class DetailsDatasource implements DetailsDatasourceUsecase {
   @override
   Future<TitleDetails?> getTitleDetails(int titleId) async {
     final response = await api.titleTitleIdDetailsGet(titleId: titleId);
-    return response.body;
+    return response.bodyOrThrow;
   }
 }
 
@@ -17,7 +17,7 @@ class MockSucessDetailsDatasource implements DetailsDatasourceUsecase {
   @override
   Future<TitleDetails?> getTitleDetails(int titleId) async {
     return Future.delayed(
-      const Duration(seconds: 1),
+      const Duration(seconds: 3),
       () {
         return Future.value(
           TitleDetails(
