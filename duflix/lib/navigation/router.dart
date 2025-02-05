@@ -4,6 +4,9 @@ import 'package:duflix/feature/details/bloc/details_cubit.dart';
 import 'package:duflix/feature/details/data/details_datasource.dart';
 import 'package:duflix/feature/details/data/details_repository.dart';
 import 'package:duflix/feature/details/details_screen.dart';
+import 'package:duflix/feature/sources_list/bloc/sources_cubit.dart';
+import 'package:duflix/feature/sources_list/data/souces_repository.dart';
+import 'package:duflix/feature/sources_list/data/sources_datasource.dart';
 import 'package:duflix/feature/sources_list/sources_page.dart';
 import 'package:duflix/feature/titles_list/bloc/titles_list_cubit.dart';
 import 'package:duflix/feature/titles_list/data/titles_list_datasource.dart';
@@ -28,7 +31,14 @@ class AppNavigator {
     routes: [
       GoRoute(
         path: AppRoutes.sources,
-        builder: (context, state) => const SourcesPage(),
+        builder: (context, state) => BlocProvider(
+          create: (_) => SourcesCubit(
+            SourcesRepository(
+              MockSuccessSourcesDatasource(),
+            ),
+          )..loadSources(),
+          child: SourcesScreen(),
+        ),
         routes: [
           _titlesListRoute(),
         ],
@@ -39,15 +49,18 @@ class AppNavigator {
   static GoRoute _titlesListRoute() {
     return GoRoute(
       path: AppRoutes.titles,
-      builder: (context, state) => BlocProvider(
-        create: (_) => TitlesListCubit(
-          TitlesListRepository(
-            TitlesListDatasource(watchmodeApi),
-          ),
-          371,
-        )..loadTitles(),
-        child: const TitlesListPage(),
-      ),
+      builder: (context, state) {
+        final sourceId = state.pathParameters['sourceId'];
+        return BlocProvider(
+          create: (_) => TitlesListCubit(
+            TitlesListRepository(
+              TitlesListDatasource(watchmodeApi),
+            ),
+            int.parse(sourceId ?? ''),
+          )..loadTitles(),
+          child: const TitlesListPage(),
+        );
+      },
       routes: [
         _detailsRoute(),
       ],

@@ -4,6 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 enum TitlesListState { loading, loaded, error, loadingMore }
 
+abstract class TitlesViewModelUseCase {
+  void purchaseTVOD();
+}
+
 class TitlesListCubit extends Cubit<TitlesListState> {
   TitlesListCubit(this._titlesRepositoryUseCase, this.sourceId)
       : super(TitlesListState.loading);

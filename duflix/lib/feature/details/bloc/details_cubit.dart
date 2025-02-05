@@ -22,7 +22,7 @@ class DetailsCubit extends Cubit<DetailsPageState> {
 
   String? get detailImage => details?.backdrop ?? details?.poster;
   bool get isMock =>
-      _detailsRepositoryUseCase.runtimeType == SucessMockDetailsRepository;
+      _detailsRepositoryUseCase.runtimeType == MockSuccessDetailsRepository;
 
   Future<void> loadDetails() async {
     try {

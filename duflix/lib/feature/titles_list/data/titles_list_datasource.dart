@@ -16,7 +16,8 @@ class TitlesListDatasource implements TitlesListDatasourceUsecase {
   }
 }
 
-class MockSuccessTitlesListDataSource implements TitlesListDatasourceUsecase {
+class MockSuccessTitlesListDataSourceImpl
+    implements TitlesListDatasourceUsecase {
   @override
   Future<TitlesResult> listTitles(int sourceId, int page) async {
     return Future.delayed(

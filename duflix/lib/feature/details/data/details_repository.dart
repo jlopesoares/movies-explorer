@@ -14,8 +14,8 @@ class DetailsRepository implements DetailsRepositoryUseCase {
   }
 }
 
-class SucessMockDetailsRepository implements DetailsRepositoryUseCase {
-  const SucessMockDetailsRepository(this.datasource);
+class MockSuccessDetailsRepository implements DetailsRepositoryUseCase {
+  const MockSuccessDetailsRepository(this.datasource);
 
   @override
   final DetailsDatasourceUsecase datasource;

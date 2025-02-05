@@ -1,44 +1,59 @@
 import 'package:duflix/api/gen/watchmode_api.swagger.dart';
+import 'package:duflix/feature/sources_list/bloc/sources_cubit.dart';
+import 'package:duflix/feature/sources_list/domain/sources_rail.dart';
 import 'package:duflix/feature/sources_list/widgets/source_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-class SourcesPage extends StatelessWidget {
-  const SourcesPage({super.key});
+class SourcesScreen extends StatelessWidget {
+  SourcesScreen({super.key});
+
+  late SourcesCubit _sourcesCubit;
 
   @override
   Widget build(BuildContext context) {
+    _sourcesCubit = context.read<SourcesCubit>();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Sources'),
       ),
-      body: ListView.builder(
-        itemCount: 10,
-        itemBuilder: (context, index) {
-          return _railWidget(
-            'Rail Name $index',
-            [
-              SourceSummary(
-                id: 12,
-                name: 'Source $index',
-                type: SourceType.free,
-                logo100px: 'asd',
-                regions: ['US'],
-              ),
-            ],
-          );
+      body: BlocBuilder<SourcesCubit, SourcesScreenState>(
+        bloc: _sourcesCubit,
+        builder: (context, state) {
+          return _pageUI(state);
         },
       ),
     );
   }
 
-  Widget _railWidget(String title, List<SourceSummary> sources) {
+  Widget _pageUI(SourcesScreenState state) {
+    switch (state) {
+      case SourcesScreenState.loading:
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      case SourcesScreenState.loaded:
+        return ListView.builder(
+          itemCount: _sourcesCubit.rails.length,
+          itemBuilder: (context, index) {
+            return _railWidget(_sourcesCubit.rails[index]);
+          },
+        );
+      case SourcesScreenState.error:
+        return const Center(
+          child: Text('Error loading sources'),
+        );
+    }
+  }
+
+  Widget _railWidget(SourcesRail rail) {
     return Column(
       spacing: 8,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _railTitle(title),
-        _railList(sources),
+        _railTitle(rail.title),
+        _railList(rail.sources),
       ],
     );
   }
