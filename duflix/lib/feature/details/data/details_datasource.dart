@@ -13,7 +13,7 @@ class DetailsDatasource implements DetailsDatasourceUsecase {
   }
 }
 
-class MockSucessDetailsDatasource implements DetailsDatasourceUsecase {
+class MockSuccessDetailsDatasource implements DetailsDatasourceUsecase {
   @override
   Future<TitleDetails?> getTitleDetails(int titleId) async {
     return Future.delayed(
