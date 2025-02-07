@@ -7,13 +7,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 class DetailsScreen extends StatelessWidget {
-  DetailsScreen({super.key});
-
-  late DetailsCubit _detailsCubit;
+  const DetailsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    _detailsCubit = context.read<DetailsCubit>();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Details'),
@@ -22,7 +19,6 @@ class DetailsScreen extends StatelessWidget {
         ),
       ),
       body: BlocBuilder<DetailsCubit, DetailsPageState>(
-        bloc: _detailsCubit,
         builder: (context, state) {
           return _screenUIState(context);
         },
@@ -31,7 +27,8 @@ class DetailsScreen extends StatelessWidget {
   }
 
   Widget _screenUIState(BuildContext context) {
-    switch (_detailsCubit.state) {
+    final detailsCubit = context.read<DetailsCubit>();
+    switch (detailsCubit.state) {
       case DetailsPageState.loading:
         return const Center(
           child: CircularProgressIndicator(),
@@ -48,6 +45,7 @@ class DetailsScreen extends StatelessWidget {
   }
 
   Widget _loadedPageState(BuildContext context) {
+    final detailsCubit = context.read<DetailsCubit>();
     return Column(
       children: [
         _imageWidget(context),
@@ -58,24 +56,24 @@ class DetailsScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                _detailsCubit.details?.title ?? '',
+                detailsCubit.details?.title ?? '',
                 style: const TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               TitleTypeAndYearMetadata.filled(
-                _detailsCubit.details?.type.name ?? '',
-                _detailsCubit.details?.year.toString() ?? '',
+                detailsCubit.details?.type.name ?? '',
+                detailsCubit.details?.year.toString() ?? '',
               ),
               _genresWidget(context),
               Text(
-                _detailsCubit.details?.plotOverview ?? '',
+                detailsCubit.details?.plotOverview ?? '',
               ),
               _scoresWidget(
-                _detailsCubit.details?.criticScore,
-                _detailsCubit.details?.userRating,
-                _detailsCubit.details?.relevancePercentile,
+                detailsCubit.details?.criticScore,
+                detailsCubit.details?.userRating,
+                detailsCubit.details?.relevancePercentile,
               ),
             ],
           ),

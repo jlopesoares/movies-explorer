@@ -71,8 +71,10 @@ void main() {
         expect(cubit.details?.genreNames, ['Action', 'Adventure']);
         expect(cubit.details?.poster, 'assets/images/mufasa_poster.jpg');
         expect(cubit.details?.backdrop, 'assets/images/mufasa_backdrop.jpg');
-        expect(cubit.details?.plotOverview,
-            "Mufasa is a lion, the king of the jungle. He has a son, Simba, who will one day take his place as king. Mufasa's brother, Scar, plots to betray Mufasa and take over the throne. Simba is exiled and must return to take his rightful place as king.");
+        expect(
+          cubit.details?.plotOverview,
+          "Mufasa is a lion, the king of the jungle. He has a son, Simba, who will one day take his place as king. Mufasa's brother, Scar, plots to betray Mufasa and take over the throne. Simba is exiled and must return to take his rightful place as king.",
+        );
       },
     );
 

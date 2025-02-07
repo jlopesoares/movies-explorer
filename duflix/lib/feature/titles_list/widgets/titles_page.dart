@@ -54,7 +54,6 @@ class _TitlesListPageState extends State<TitlesListPage> {
         leading: BackButton(onPressed: () => GoRouter.of(context).pop()),
       ),
       body: BlocBuilder<TitlesListCubit, TitlesListState>(
-        bloc: _titlesListCubit,
         builder: (context, state) {
           return _pageUIState(context);
         },

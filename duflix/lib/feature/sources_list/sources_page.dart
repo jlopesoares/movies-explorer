@@ -7,27 +7,24 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 class SourcesScreen extends StatelessWidget {
-  SourcesScreen({super.key});
-
-  late SourcesCubit _sourcesCubit;
+  const SourcesScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    _sourcesCubit = context.read<SourcesCubit>();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Sources'),
       ),
       body: BlocBuilder<SourcesCubit, SourcesScreenState>(
-        bloc: _sourcesCubit,
         builder: (context, state) {
-          return _pageUI(state);
+          return _pageUI(state, context);
         },
       ),
     );
   }
 
-  Widget _pageUI(SourcesScreenState state) {
+  Widget _pageUI(SourcesScreenState state, BuildContext context) {
+    final sourcesCubit = context.read<SourcesCubit>();
     switch (state) {
       case SourcesScreenState.loading:
         return const Center(
@@ -35,9 +32,9 @@ class SourcesScreen extends StatelessWidget {
         );
       case SourcesScreenState.loaded:
         return ListView.builder(
-          itemCount: _sourcesCubit.rails.length,
+          itemCount: sourcesCubit.rails.length,
           itemBuilder: (context, index) {
-            return _railWidget(_sourcesCubit.rails[index]);
+            return _railWidget(sourcesCubit.rails[index]);
           },
         );
       case SourcesScreenState.error:
