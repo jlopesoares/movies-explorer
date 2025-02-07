@@ -13,7 +13,6 @@ class TitlesListPage extends StatefulWidget {
 }
 
 class _TitlesListPageState extends State<TitlesListPage> {
-  late TitlesListCubit _titlesListCubit;
   final ScrollController _scrollController = ScrollController();
 
   @override
@@ -25,30 +24,29 @@ class _TitlesListPageState extends State<TitlesListPage> {
   @override
   void dispose() {
     _scrollController.dispose();
-    _titlesListCubit.close();
     super.dispose();
   }
 
   void _onScroll() {
     if (_scrollController.position.pixels >=
-        _scrollController.position.maxScrollExtent) {
-      _titlesListCubit.loadMoreTitles();
+        (_scrollController.position.maxScrollExtent - 50)) {
+      context.read<TitlesListCubit>().loadMoreTitles();
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    _titlesListCubit = context.read<TitlesListCubit>();
+    final titlesListCubit = context.watch<TitlesListCubit>();
     return Scaffold(
       appBar: AppBar(
         title: Row(
           children: [
             DuflixNetworkImage(
-              url: _titlesListCubit.source?.logo100px,
+              url: titlesListCubit.source?.logo100px,
               height: 24,
             ),
             const SizedBox(width: 8),
-            Text(_titlesListCubit.source?.name ?? ''),
+            Text(titlesListCubit.source?.name ?? ''),
           ],
         ),
         leading: BackButton(onPressed: () => GoRouter.of(context).pop()),
@@ -62,17 +60,18 @@ class _TitlesListPageState extends State<TitlesListPage> {
   }
 
   Widget _pageUIState(BuildContext context) {
-    switch (_titlesListCubit.state) {
+    final titlesListCubit = context.read<TitlesListCubit>();
+    switch (titlesListCubit.state) {
       case TitlesListState.loading:
         return const Center(child: CircularProgressIndicator());
       case TitlesListState.loaded:
       case TitlesListState.loadingMore:
         return ListView.builder(
           controller: _scrollController,
-          itemCount: _titlesListCubit.titles.length +
-              (_titlesListCubit.hasMoreItems ? 1 : 0),
+          itemCount: titlesListCubit.titles.length +
+              (titlesListCubit.hasMoreItems ? 1 : 0),
           itemBuilder: (context, index) {
-            if (index == _titlesListCubit.titles.length) {
+            if (index == titlesListCubit.titles.length) {
               return const Padding(
                 padding: EdgeInsets.all(8),
                 child: Center(
@@ -81,10 +80,10 @@ class _TitlesListPageState extends State<TitlesListPage> {
               );
             }
             return TitleSummaryWidget(
-              _titlesListCubit.titles[index],
+              titlesListCubit.titles[index],
               _navigateToDetails(
                 context,
-                _titlesListCubit.titles[index].id,
+                titlesListCubit.titles[index].id,
               ),
             );
           },
