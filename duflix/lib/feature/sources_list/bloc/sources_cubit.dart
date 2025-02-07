@@ -1,5 +1,5 @@
-import 'package:duflix/feature/sources_list/data/souces_repository.dart';
 import 'package:duflix/feature/sources_list/domain/sources_rail.dart';
+import 'package:duflix/feature/sources_list/usecases/sources_repository_usecase.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 enum SourcesScreenState {
@@ -11,7 +11,7 @@ enum SourcesScreenState {
 class SourcesCubit extends Cubit<SourcesScreenState> {
   SourcesCubit(this._repository) : super(SourcesScreenState.loading);
 
-  final SourcesRepository _repository;
+  final SourcesRepositoryUsecase _repository;
   late List<SourcesRail> rails;
 
   Future<void> loadSources() async {

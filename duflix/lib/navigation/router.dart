@@ -1,3 +1,4 @@
+import 'package:duflix/api/gen/watchmode_api.models.swagger.dart';
 import 'package:duflix/api/watchmode_api.dart';
 import 'package:duflix/app_config.dart';
 import 'package:duflix/feature/details/bloc/details_cubit.dart';
@@ -18,7 +19,7 @@ import 'package:go_router/go_router.dart';
 
 final config = AppConfig(
   watchmodeBaseUrl: Uri.parse('https://api.watchmode.com/v1'),
-  watchmodeApiKey: 'Idsv1VxxFK80sxF2ES89OlOIB2kSxmQNXj6RuPeB',
+  watchmodeApiKey: '5NwgJGwThjwIh6F42ia3iRldcZxu7JndNK1nqpim',
 );
 
 final watchmodeApi = createWatchmodeApi(
@@ -29,34 +30,49 @@ final watchmodeApi = createWatchmodeApi(
 class AppNavigator {
   GoRouter useGoRouter = GoRouter(
     routes: [
-      GoRoute(
-        path: AppRoutes.sources,
-        builder: (context, state) => BlocProvider(
+      _sourcesRoute(),
+    ],
+  );
+
+  static GoRoute _sourcesRoute() {
+    return GoRoute(
+      path: AppRoutes.sources,
+      builder: (context, state) {
+        return BlocProvider(
           create: (_) => SourcesCubit(
             SourcesRepository(
               SourcesDatasource(watchmodeApi),
             ),
           )..loadSources(),
           child: SourcesScreen(),
-        ),
-        routes: [
-          _titlesListRoute(),
-        ],
-      ),
-    ],
-  );
+        );
+      },
+      routes: [
+        _titlesListRoute(),
+      ],
+    );
+  }
 
   static GoRoute _titlesListRoute() {
     return GoRoute(
       path: AppRoutes.titles,
       builder: (context, state) {
         final sourceId = state.pathParameters['sourceId'];
+
+        SourceSummary? source;
+        if (state.extra is SourceSummary) {
+          source = state.extra as SourceSummary?;
+        } else {
+          print('no extra');
+        }
+
         return BlocProvider(
           create: (_) => TitlesListCubit(
             TitlesListRepository(
               TitlesListDatasource(watchmodeApi),
             ),
             int.parse(sourceId ?? ''),
+            source,
           )..loadTitles(),
           child: const TitlesListPage(),
         );

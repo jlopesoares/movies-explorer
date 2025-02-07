@@ -9,11 +9,12 @@ abstract class TitlesViewModelUseCase {
 }
 
 class TitlesListCubit extends Cubit<TitlesListState> {
-  TitlesListCubit(this._titlesRepositoryUseCase, this.sourceId)
+  TitlesListCubit(this._titlesRepositoryUseCase, this.sourceId, this.source)
       : super(TitlesListState.loading);
 
   final TitlesListRepositoryUseCase _titlesRepositoryUseCase;
   final int sourceId;
+  final SourceSummary? source;
 
   List<TitleSummary> titles = [];
   TitlesResult? _titlesResult;

@@ -32,7 +32,12 @@ class DuflixNetworkImage extends StatelessWidget {
       errorBuilder: (context, error, stackTrace) => SizedBox(
         width: width ?? 50,
         height: height ?? 50,
-        child: const Center(child: Icon(Icons.error, color: Colors.red)),
+        child: const Center(
+          child: Icon(
+            Icons.warning,
+            color: Colors.yellow,
+          ),
+        ),
       ),
     );
   }

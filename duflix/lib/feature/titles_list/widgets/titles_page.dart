@@ -1,3 +1,4 @@
+import 'package:duflix/core/widgets/duflix_image_downloader.dart';
 import 'package:duflix/feature/titles_list/bloc/titles_list_cubit.dart';
 import 'package:duflix/feature/titles_list/widgets/widgets/title_summary_widget.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +41,16 @@ class _TitlesListPageState extends State<TitlesListPage> {
     _titlesListCubit = context.read<TitlesListCubit>();
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Titles'),
+        title: Row(
+          children: [
+            DuflixNetworkImage(
+              url: _titlesListCubit.source?.logo100px,
+              height: 24,
+            ),
+            const SizedBox(width: 8),
+            Text(_titlesListCubit.source?.name ?? ''),
+          ],
+        ),
         leading: BackButton(onPressed: () => GoRouter.of(context).pop()),
       ),
       body: BlocBuilder<TitlesListCubit, TitlesListState>(
@@ -86,7 +96,6 @@ class _TitlesListPageState extends State<TitlesListPage> {
   }
 
   VoidCallback _navigateToDetails(BuildContext context, int id) {
-    return () => GoRouter.of(context)
-        .go('${GoRouter.of(context).state.fullPath}/details/$id');
+    return () => GoRouter.of(context).go('./details/$id');
   }
 }

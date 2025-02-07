@@ -15,17 +15,6 @@ void main() {
 class MainApp extends StatelessWidget {
   const MainApp({super.key});
 
-  void teste() {
-    // final watchmodeApi = createWatchmodeApi(
-    //   baseUrl: config.watchmodeBaseUrl,
-    //   apiKey: config.watchmodeApiKey,
-    // );
-
-    // watchmodeApi.listTitlesGet().then((value) {
-    //   print(value.body);
-    // });
-  }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(

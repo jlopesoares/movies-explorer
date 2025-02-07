@@ -85,16 +85,23 @@ class SourcesScreen extends StatelessWidget {
         itemBuilder: (context, index) {
           return SourceWidget(
             sources[index],
-            _navigateToTitle(context, sources[index].id),
+            _navigateToTitle(context, sources[index].id, sources[index]),
           );
         },
       ),
     );
   }
 
-  VoidCallback _navigateToTitle(BuildContext context, int id) {
+  VoidCallback _navigateToTitle(
+    BuildContext context,
+    int id,
+    SourceSummary source,
+  ) {
     return () {
-      GoRouter.of(context).go('/titles/$id');
+      GoRouter.of(context).go(
+        '/titles/$id',
+        extra: source,
+      );
     };
   }
 }
