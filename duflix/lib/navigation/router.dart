@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:duflix/api/gen/watchmode_api.models.swagger.dart';
 import 'package:duflix/api/watchmode_api.dart';
 import 'package:duflix/app_config.dart';
@@ -44,7 +46,7 @@ class AppNavigator {
               SourcesDatasource(watchmodeApi),
             ),
           )..loadSources(),
-          child: SourcesScreen(),
+          child: const SourcesScreen(),
         );
       },
       routes: [
@@ -63,7 +65,7 @@ class AppNavigator {
         if (state.extra is SourceSummary) {
           source = state.extra as SourceSummary?;
         } else {
-          print('no extra');
+          log('no extra');
         }
 
         return BlocProvider(
@@ -95,7 +97,7 @@ class AppNavigator {
             ),
             titleId,
           )..loadDetails(),
-          child: DetailsScreen(),
+          child: const DetailsScreen(),
         );
       },
     );
