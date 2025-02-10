@@ -24,7 +24,7 @@ class SourcesScreen extends StatelessWidget {
   }
 
   Widget _pageUI(SourcesScreenState state, BuildContext context) {
-    final sourcesCubit = context.read<SourcesCubit>();
+    final sourcesCubit = context.watch<SourcesCubit>();
     switch (state) {
       case SourcesScreenState.loading:
         return const Center(

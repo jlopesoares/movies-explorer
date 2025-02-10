@@ -60,7 +60,7 @@ class _TitlesListPageState extends State<TitlesListPage> {
   }
 
   Widget _pageUIState(BuildContext context) {
-    final titlesListCubit = context.read<TitlesListCubit>();
+    final titlesListCubit = context.watch<TitlesListCubit>();
     switch (titlesListCubit.state) {
       case TitlesListState.loading:
         return const Center(child: CircularProgressIndicator());

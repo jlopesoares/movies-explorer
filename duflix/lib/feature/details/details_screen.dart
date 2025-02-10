@@ -27,7 +27,7 @@ class DetailsScreen extends StatelessWidget {
   }
 
   Widget _screenUIState(BuildContext context) {
-    final detailsCubit = context.read<DetailsCubit>();
+    final detailsCubit = context.watch<DetailsCubit>();
     switch (detailsCubit.state) {
       case DetailsPageState.loading:
         return const Center(
@@ -45,7 +45,7 @@ class DetailsScreen extends StatelessWidget {
   }
 
   Widget _loadedPageState(BuildContext context) {
-    final detailsCubit = context.read<DetailsCubit>();
+    final detailsCubit = context.watch<DetailsCubit>();
     return Column(
       children: [
         _imageWidget(context),
@@ -82,13 +82,17 @@ class DetailsScreen extends StatelessWidget {
     );
   }
 
-  Row _genresWidget(BuildContext context) {
-    final DetailsCubit detailsCubit = context.read<DetailsCubit>();
-    return Row(
-      spacing: 8,
-      children:
-          detailsCubit.details?.genreNames.map(DuflixChip.outlined).toList() ??
-              [],
+  SingleChildScrollView _genresWidget(BuildContext context) {
+    final detailsCubit = context.watch<DetailsCubit>();
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        spacing: 8,
+        children: detailsCubit.details?.genreNames
+                .map(DuflixChip.outlined)
+                .toList() ??
+            [],
+      ),
     );
   }
 
@@ -113,7 +117,7 @@ class DetailsScreen extends StatelessWidget {
   }
 
   Widget _imageWidget(BuildContext context) {
-    final DetailsCubit detailsCubit = context.read<DetailsCubit>();
+    final detailsCubit = context.watch<DetailsCubit>();
 
     if (detailsCubit.isMock) {
       return Image.asset(detailsCubit.detailImage!);
